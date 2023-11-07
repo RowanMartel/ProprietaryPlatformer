@@ -451,17 +451,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundPrefab: {fileID: 5669419357695743112, guid: f9dcd173e2644044ab4352819e57b9c8, type: 3}
-  goalPrefab: {fileID: 0}
+  goalPrefab: {fileID: 1250243863426999670, guid: a44fabc51d91fc342a32b6c8a7b4dc8b, type: 3}
   spikesPrefab: {fileID: 4935112835766066169, guid: 206c7385178c4d24f8f7e785865780cf, type: 3}
-  groundLevel: 12
-  spikesCount: 15
-  spikesPosVariance: 10
-  bumpCount: 5
-  bumpVariance: 10
-  pitCount: 5
-  pitRadius: 6
-  pitRadiusVariance: 3
-  smoothings: 10
+  platformPrefab: {fileID: 4983179308744090796, guid: 22157b58977adab47b0c843c5891f7c0, type: 3}
+  groundLevel: 11
+  spikesCount: 10
+  spikesPosVariance: 7
+  bumpCount: 4
+  bumpVariance: 6
+  pitCount: 3
+  pitRadius: 5
+  pitRadiusVariance: 4
+  smoothings: 5
+  pitWidthForPlatform: 9
+  platformPosVariance: 2
 --- !u!4 &1279458553
 Transform:
   m_ObjectHideFlags: 0
@@ -492,7 +495,7 @@ GameObject:
   - component: {fileID: 1292821301}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -578,6 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   jumpForce: 300
+  rb: {fileID: 1292821300}
 --- !u!50 &1292821300
 Rigidbody2D:
   serializedVersion: 4

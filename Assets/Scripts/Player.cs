@@ -10,11 +10,10 @@ public class Player : MonoBehaviour
 
     bool grounded;
 
-    Rigidbody2D rb;
+    [SerializeField] Rigidbody2D rb;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         Reset();
     }
 
