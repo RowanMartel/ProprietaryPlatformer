@@ -10,8 +10,8 @@ public class Platform : MonoBehaviour
     int start = -480;
     int end = 480;
 
-    int vertCurrent = 0;
-    int horCurrent = 0;
+    float vertCurrent = 0;
+    float horCurrent = 0;
 
     bool vertForward = false;
     bool horForward = false;
@@ -32,31 +32,31 @@ public class Platform : MonoBehaviour
     {
         if (vertForward)
         {
-            vertCurrent++;
+            vertCurrent += Time.deltaTime * 500;
             if (moveVertical)
                 transform.Translate(0, Time.deltaTime, 0);
-            if (vertCurrent == end) vertForward = false;
+            if (vertCurrent >= end) vertForward = false;
         }
         else
         {
-            vertCurrent--;
+            vertCurrent -= Time.deltaTime * 500;
             if (moveVertical)
                 transform.Translate(0, -Time.deltaTime, 0);
-            if (vertCurrent == start) vertForward = true;
+            if (vertCurrent <= start) vertForward = true;
         }
         if (horForward)
         {
-            horCurrent++;
+            horCurrent += Time.deltaTime * 500;
             if (moveHorizontal)
                 transform.Translate(Time.deltaTime, 0, 0);
-            if (horCurrent == end) horForward = false;
+            if (horCurrent >= end) horForward = false;
         }
         else
         {
-            horCurrent--;
+            horCurrent -= Time.deltaTime * 500;
             if (moveHorizontal)
                 transform.Translate(-Time.deltaTime, 0, 0);
-            if (horCurrent == start) horForward = true;
+            if (horCurrent <= start) horForward = true;
         }
     }
 

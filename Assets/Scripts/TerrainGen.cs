@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TerrainGen : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class TerrainGen : MonoBehaviour
 
     private int startPosX, startPosY;
 
-    [SerializeField][Range(1, 40)] public int groundLevel;
+    [SerializeField][Range(1, 30)] public int groundLevel;
     [SerializeField][Range(0, 15)] int spikesCount;
     [SerializeField][Range(0, 10)] int spikesPosVariance;
     [SerializeField][Range(1, 5)] int bumpCount;
@@ -44,6 +46,8 @@ public class TerrainGen : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
             Reset();
+
+        UpdateValuesToSliders();
     }
 
     public void Reset()
@@ -244,13 +248,22 @@ public class TerrainGen : MonoBehaviour
 
                             if (currentTile.topTile.active && currentTile.bottomTile.active)
                                 currentTile.active = true;
-
-                            if (currentTile.bottomTile.active && currentTile.topTile.active && currentTile.leftTile.active && currentTile.rightTile.active)
-                                currentTile.active = true;
                             
                         }
-                        else
+                        else if (currentTile.active)
                         {
+                            if (!currentTile.bottomTile.active && !currentTile.topTile.active && !currentTile.leftTile.active && !currentTile.rightTile.active)
+                            {
+                                currentTile.active = false;
+                                continue;
+                            }
+
+                            if (!currentTile.leftTile.active && ! currentTile.rightTile.active)
+                            {
+                                currentTile.leftTile.active = true;
+                                continue;
+                            }
+
                             if (!currentTile.topTile.active)
                                 currentTile.bottomTile.active = true;
 
@@ -259,9 +272,6 @@ public class TerrainGen : MonoBehaviour
                                 if (!currentTile.topTile.active || !currentTile.bottomTile.active)
                                     currentTile.active = false;
                             }
-
-                            if (!currentTile.bottomTile.active && !currentTile.topTile.active && !currentTile.leftTile.active && !currentTile.rightTile.active)
-                                currentTile.active = false;
                         }
                     }
                     
@@ -289,6 +299,33 @@ public class TerrainGen : MonoBehaviour
                 }
             }
         }
+    }
+
+    // slider shit
+    [SerializeField] Slider groundLevelSlider;
+    [SerializeField] Slider spikesCountSlider;
+    [SerializeField] Slider spikesPosVarianceSlider;
+    [SerializeField] Slider bumpCountSlider;
+    [SerializeField] Slider bumpVarianceSlider;
+    [SerializeField] Slider pitCountSlider;
+    [SerializeField] Slider pitRadiusSlider;
+    [SerializeField] Slider pitRadiusVarianceSlider;
+    [SerializeField] Slider smoothingsSlider;
+    [SerializeField] Slider pitWidthForPlatformSlider;
+    [SerializeField] Slider platformPosVarianceSlider;
+    void UpdateValuesToSliders()
+    {
+        groundLevel = (int)groundLevelSlider.value;
+        spikesCount = (int)spikesCountSlider.value;
+        spikesPosVariance = (int)spikesPosVarianceSlider.value;
+        bumpCount = (int)bumpCountSlider.value;
+        bumpVariance = (int)bumpVarianceSlider.value;
+        pitCount = (int)pitCountSlider.value;
+        pitRadius = (int)pitRadiusSlider.value;
+        pitRadiusVariance = (int)pitRadiusVarianceSlider.value;
+        smoothings = (int)smoothingsSlider.value;
+        pitWidthForPlatform = 15 - (int)pitWidthForPlatformSlider.value; // reversed
+        platformPosVariance = (int)platformPosVarianceSlider.value;
     }
 }
 
